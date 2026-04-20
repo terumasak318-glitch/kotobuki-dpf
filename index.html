@@ -649,6 +649,90 @@
     .price-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   }
 
+  /* ===== DPF INTRO ANIMATION ===== */
+  #dpf-intro {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1);
+  }
+  #dpf-intro.exit { transform: translateY(-100%); pointer-events: none; }
+  .dpf-ic {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 24px; padding: 20px; text-align: center;
+  }
+  .dpf-logo {
+    opacity: 0;
+    animation: dpfFadeUp 0.7s 0.2s ease forwards;
+  }
+  .dpf-logo-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 900; color: white;
+    letter-spacing: 0.05em;
+    display: flex; align-items: center; gap: 10px; justify-content: center;
+  }
+  .dpf-logo-text .dpf-accent { color: var(--orange2); }
+  .dpf-logo-badge {
+    background: var(--orange); color: white;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.52rem; font-weight: 700;
+    padding: 4px 9px; border-radius: 3px;
+    letter-spacing: 0.08em; align-self: center;
+  }
+  .dpf-logo-sub {
+    font-size: 0.75rem; color: rgba(255,255,255,0.35);
+    letter-spacing: 0.18em; margin-top: 5px;
+  }
+  .dpf-graphic {
+    opacity: 0;
+    animation: dpfFadeUp 0.7s 0.8s ease forwards;
+    position: relative;
+  }
+  #dpf-svg { display: block; overflow: visible; }
+  .dpf-pressure {
+    display: flex; align-items: baseline; gap: 6px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 8px 18px;
+    justify-content: center; margin-top: 12px;
+  }
+  .dpf-press-label {
+    font-size: 0.68rem; color: var(--gray); font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .dpf-press-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.2rem; font-weight: 900; color: #ff4d4d;
+    transition: color 0.8s ease;
+    min-width: 58px; text-align: right; line-height: 1;
+  }
+  .dpf-press-num.clean { color: #4ddb7a; }
+  .dpf-press-unit {
+    font-size: 0.85rem; color: rgba(255,255,255,0.45); font-weight: 700;
+  }
+  .dpf-status {
+    font-size: 0.7rem; color: rgba(255,255,255,0.3);
+    letter-spacing: 0.12em; margin-top: 4px;
+    transition: color 0.8s ease;
+  }
+  .dpf-status.clean { color: var(--orange2); }
+  .dpf-tagline {
+    opacity: 0;
+    font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+    font-weight: 700; color: rgba(255,255,255,0.75);
+    line-height: 1.8; letter-spacing: 0.06em;
+    animation: dpfFadeUp 0.7s 3.8s ease forwards;
+  }
+  @keyframes dpfFadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+  @keyframes dpfBeamMove {
+    from { transform: translateX(-220px); }
+    to   { transform: translateX(440px);  }
+  }
+
   /* ===== ANIMATIONS ===== */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(30px); }
@@ -672,6 +756,63 @@
 <body>
 
 <!-- HEADER -->
+<!-- ============================================================
+  DPF INTRO ANIMATION OVERLAY
+  ============================================================ -->
+<div id="dpf-intro">
+  <div class="dpf-ic">
+    <!-- ロゴ -->
+    <div class="dpf-logo">
+      <div class="dpf-logo-text">
+        <span>KOTOBUKI</span>
+        <span class="dpf-accent">DPF</span>
+        <span class="dpf-logo-badge">グッドワン特約店</span>
+      </div>
+      <div class="dpf-logo-sub">DPF CLEANING SERVICE</div>
+    </div>
+
+    <!-- DPFフィルター断面アニメーション -->
+    <div class="dpf-graphic">
+      <svg id="dpf-svg" viewBox="0 0 200 200" width="180" height="180" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="dpf-clip">
+            <circle cx="100" cy="100" r="92"/>
+          </clipPath>
+          <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"   stop-color="transparent"/>
+            <stop offset="30%"  stop-color="rgba(255,120,30,0.6)"/>
+            <stop offset="50%"  stop-color="rgba(255,180,60,0.9)"/>
+            <stop offset="70%"  stop-color="rgba(255,120,30,0.6)"/>
+            <stop offset="100%" stop-color="transparent"/>
+          </linearGradient>
+        </defs>
+        <!-- 外枠リング -->
+        <circle cx="100" cy="100" r="95" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+        <circle cx="100" cy="100" r="92" fill="#0a1520"/>
+        <!-- DPFセル（JSで生成） -->
+        <g id="dpf-cells" clip-path="url(#dpf-clip)"></g>
+        <!-- すすパーティクル（JSで生成） -->
+        <g id="dpf-particles" clip-path="url(#dpf-clip)"></g>
+        <!-- クリーニングビーム -->
+        <rect id="dpf-beam" x="-100" y="0" width="80" height="200"
+              fill="url(#beamGrad)" opacity="0" clip-path="url(#dpf-clip)"/>
+      </svg>
+      <!-- 差圧値表示 -->
+      <div class="dpf-pressure">
+        <span class="dpf-press-label">差圧値</span>
+        <span class="dpf-press-num" id="dpf-kpa">39.0</span>
+        <span class="dpf-press-unit">kPa</span>
+      </div>
+      <div class="dpf-status" id="dpf-status">詰まり検知 — クリーニング待機中</div>
+    </div>
+
+    <!-- タグライン -->
+    <div class="dpf-tagline">
+      差圧値で証明する。2時間で変わる。
+    </div>
+  </div>
+</div>
+
 <header>
   <a href="#" class="logo">
     <span>KOTOBUKI</span>
@@ -1285,6 +1426,126 @@
 </div>
 
 <script>
+  // ===== DPF INTRO ANIMATION =====
+  (function() {
+    document.body.style.overflow = 'hidden';
+    var ns = 'http://www.w3.org/2000/svg';
+    var cellsG = document.getElementById('dpf-cells');
+    var particlesG = document.getElementById('dpf-particles');
+    var beam = document.getElementById('dpf-beam');
+    var kpaEl = document.getElementById('dpf-kpa');
+    var statusEl = document.getElementById('dpf-status');
+    var CX = 100, CY = 100, R = 88, CELL = 7, GAP = 3, STEP = 10;
+
+    // DPFセルを生成（フィルター断面）
+    var cells = [];
+    for (var row = 0; row < 20; row++) {
+      for (var col = 0; col < 20; col++) {
+        var x = col * STEP + GAP;
+        var y = row * STEP + GAP;
+        var cx = x + CELL / 2, cy = y + CELL / 2;
+        if (Math.sqrt(Math.pow(cx - CX, 2) + Math.pow(cy - CY, 2)) < R - 2) {
+          var rect = document.createElementNS(ns, 'rect');
+          rect.setAttribute('x', x); rect.setAttribute('y', y);
+          rect.setAttribute('width', CELL); rect.setAttribute('height', CELL);
+          rect.setAttribute('rx', '1.5');
+          rect.style.fill = '#1a1e2a'; // 詰まり状態（暗い）
+          cellsG.appendChild(rect);
+          cells.push({ el: rect, cx: cx, x: x });
+        }
+      }
+    }
+
+    // すすパーティクルを生成
+    var particles = [];
+    for (var i = 0; i < 40; i++) {
+      var angle = Math.random() * Math.PI * 2;
+      var dist = Math.random() * 72 + 8;
+      var px = CX + Math.cos(angle) * dist;
+      var py = CY + Math.sin(angle) * dist;
+      var circ = document.createElementNS(ns, 'circle');
+      circ.setAttribute('cx', px); circ.setAttribute('cy', py);
+      circ.setAttribute('r', (Math.random() * 2 + 0.8).toFixed(1));
+      circ.style.fill = '#6b4020';
+      circ.style.opacity = '0.85';
+      particlesG.appendChild(circ);
+      particles.push({ el: circ, angle: angle, ox: px, oy: py });
+    }
+
+    // クリーニング開始（1.4秒後）
+    setTimeout(function() {
+      // ビームをアニメーション
+      beam.style.opacity = '1';
+      beam.style.transition = 'none';
+      beam.setAttribute('x', '-100');
+      setTimeout(function() {
+        beam.style.transition = 'transform 1.4s linear';
+        beam.style.transform = 'translateX(400px)';
+      }, 20);
+
+      // セルをビームに合わせて順番に光らせる
+      var WAVE = 1400;
+      cells.forEach(function(cell) {
+        var progress = cell.x / 190;
+        var delay = progress * WAVE;
+        setTimeout(function() {
+          cell.el.style.transition = 'fill 0.12s ease';
+          cell.el.style.fill = '#ff8030'; // オレンジ閃光（熱反応）
+          setTimeout(function() {
+            cell.el.style.transition = 'fill 0.6s ease';
+            cell.el.style.fill = '#2a5575'; // クリーン（明るい青灰）
+          }, 120);
+        }, delay);
+      });
+
+      // パーティクルを飛ばす
+      particles.forEach(function(p) {
+        var d = 200 + Math.random() * 60;
+        setTimeout(function() {
+          var tx = CX + Math.cos(p.angle) * d;
+          var ty = CY + Math.sin(p.angle) * d;
+          p.el.style.transition = 'all 0.8s ease-in';
+          p.el.setAttribute('cx', tx);
+          p.el.setAttribute('cy', ty);
+          p.el.style.opacity = '0';
+        }, 150 + Math.random() * 900);
+      });
+
+      // ステータス更新
+      statusEl.textContent = 'クリーニング実行中…';
+
+      // 差圧値カウントダウン（0.5秒後に開始）
+      setTimeout(function() {
+        var start = Date.now(), from = 39.0, to = 6.0, dur = 1400;
+        function tick() {
+          var p = Math.min((Date.now() - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          var val = from - (from - to) * eased;
+          kpaEl.textContent = val.toFixed(1);
+          if (p < 1) { requestAnimationFrame(tick); }
+          else {
+            kpaEl.textContent = '6.0';
+            kpaEl.classList.add('clean');
+            statusEl.textContent = '✓ クリーニング完了';
+            statusEl.classList.add('clean');
+          }
+        }
+        requestAnimationFrame(tick);
+      }, 500);
+
+    }, 1400);
+
+    // オーバーレイを上にスライドして退場（4.8秒後）
+    setTimeout(function() {
+      document.getElementById('dpf-intro').classList.add('exit');
+      document.body.style.overflow = '';
+    }, 4800);
+    setTimeout(function() {
+      var el = document.getElementById('dpf-intro');
+      if (el) el.remove();
+    }, 5800);
+  })();
+
   const hamburger = document.getElementById('hamburger');
   const mobileNav = document.getElementById('mobileNav');
   hamburger.addEventListener('click', function() {
