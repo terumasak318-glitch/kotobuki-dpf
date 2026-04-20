@@ -1498,17 +1498,19 @@
         }, delay);
       });
 
-      // パーティクルを飛ばす
+      // パーティクルを飛ばす（CSS transformで移動）
+      var svgRect = document.getElementById('dpf-svg').getBoundingClientRect();
+      var scale = svgRect.width / 200; // SVGユニット→CSS px比率
       particles.forEach(function(p) {
-        var d = 200 + Math.random() * 60;
+        var d = 180 + Math.random() * 60;
+        var delay = 150 + Math.random() * 900;
         setTimeout(function() {
-          var tx = CX + Math.cos(p.angle) * d;
-          var ty = CY + Math.sin(p.angle) * d;
-          p.el.style.transition = 'all 0.8s ease-in';
-          p.el.setAttribute('cx', tx);
-          p.el.setAttribute('cy', ty);
+          var dx = (Math.cos(p.angle) * d - (p.ox - CX)) * scale;
+          var dy = (Math.sin(p.angle) * d - (p.oy - CY)) * scale;
+          p.el.style.transition = 'transform 0.8s ease-in, opacity 0.8s ease-in';
+          p.el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
           p.el.style.opacity = '0';
-        }, 150 + Math.random() * 900);
+        }, delay);
       });
 
       // ステータス更新
