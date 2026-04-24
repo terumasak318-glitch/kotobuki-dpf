@@ -266,6 +266,13 @@
     padding: 24px; border-left: 4px solid #e53935;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
+  .pain-card.featured {
+    border-left: 4px solid var(--orange);
+    background: linear-gradient(135deg, #fff8f4 0%, #fff 100%);
+    box-shadow: 0 4px 20px rgba(224,90,0,0.12);
+  }
+  .pain-card.featured h3 { font-size: 1rem; color: var(--orange); }
+  .pain-card.featured .pain-icon { font-size: 2rem; }
   .pain-icon { font-size: 1.6rem; margin-bottom: 10px; }
   .pain-card h3 { font-size: 0.88rem; font-weight: 900; color: var(--navy); margin-bottom: 6px; }
   .pain-card p { font-size: 0.8rem; color: #5a6a7a; line-height: 1.6; }
@@ -282,7 +289,9 @@
   }
   .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
   .service-card.featured {
-    border-color: var(--orange); box-shadow: 0 4px 24px rgba(224,90,0,0.15);
+    border-color: var(--orange);
+    box-shadow: 0 8px 32px rgba(224,90,0,0.22);
+    background: linear-gradient(160deg, rgba(224,90,0,0.06) 0%, rgba(255,255,255,1) 50%);
   }
   .card-head {
     background: var(--navy); color: white;
@@ -304,8 +313,8 @@
   .card-feature:last-child { border-bottom: none; }
   .card-feature .ck { color: var(--orange); font-weight: 900; flex-shrink: 0; }
   .recommend-badge {
-    background: var(--orange); color: white;
-    font-size: 0.68rem; font-weight: 900; padding: 3px 10px;
+    background: var(--orange2); color: white;
+    font-size: 0.76rem; font-weight: 900; padding: 5px 12px;
     border-radius: 12px; letter-spacing: 0.08em; margin-left: 8px;
   }
 
@@ -607,6 +616,29 @@
   .float-tel { background: var(--orange); color: white; }
 
   /* ===== RESPONSIVE ===== */
+  /* ===== MOBILE STICKY TEL BAR ===== */
+  .mobile-tel-sticky {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+    background: var(--navy);
+    border-top: 2px solid var(--orange);
+    padding: 10px 16px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .mobile-tel-sticky a {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 11px 0; border-radius: 5px;
+    font-weight: 900; font-size: 0.88rem; text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+  .mob-tel-btn { background: var(--orange); color: white; }
+  .mob-line-btn { background: #06c755; color: white; }
+  @media (max-width: 900px) {
+    .mobile-tel-sticky { display: grid; }
+    body { padding-bottom: 76px; }
+  }
+
   @media (max-width: 900px) {
     header { padding: 0 20px; }
     nav { display: none; }
@@ -614,7 +646,14 @@
     .hamburger { display: flex; }
     .hero { padding: 90px 20px 50px; }
     .hero-inner { grid-template-columns: 1fr; }
-    .hero-stats { display: none; }
+    .hero-stats {
+      display: block;
+      margin-top: 32px;
+      padding: 20px 24px;
+    }
+    .hero-stats .stat-num { font-size: 2.2rem; }
+    .hero-stats .stat-num.bad { font-size: 2.2rem; }
+    .hero-stats .stat-item:last-child { display: none; }
     section { padding: 60px 20px; }
     .service-cards { grid-template-columns: 1fr; }
     .compare-grid { grid-template-columns: 1fr; }
@@ -631,7 +670,7 @@
       text-align: left; padding: 0;
     }
     .flow-step .step-circle { margin: 0; flex-shrink: 0; }
-    .float-cta { bottom: 16px; right: 16px; }
+    .float-cta { display: none; }
     .float-btn { padding: 10px 16px; font-size: 0.8rem; }
     .price-table { font-size: 0.78rem; }
     .price-table th, .price-table td { padding: 10px 10px; }
@@ -646,7 +685,8 @@
     .cta-btns { flex-direction: column; align-items: center; }
     .pain-grid { grid-template-columns: 1fr; }
     .compare-grid { grid-template-columns: 1fr; }
-    .price-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .price-table { display: none; }
+    .price-cards-mobile { display: flex !important; }
   }
 
   /* ===== DPF INTRO ANIMATION ===== */
@@ -733,6 +773,46 @@
     to   { transform: translateX(440px);  }
   }
 
+  /* ===== PHOTO GALLERY ===== */
+  .gallery-section { background: var(--light); }
+  .photo-gallery-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 44px;
+  }
+  .photo-gallery-item {
+    border-radius: 10px; overflow: hidden;
+    aspect-ratio: 4/3; background: #e0e8f0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .photo-gallery-item:hover { transform: scale(1.02); box-shadow: 0 8px 24px rgba(0,0,0,0.14); }
+  .photo-gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-caption {
+    font-size: 0.72rem; color: #6a7a8a; text-align: center;
+    margin-top: 6px; font-weight: 700; letter-spacing: 0.04em;
+  }
+  .evidence-photo {
+    margin-top: 36px; border-radius: 12px; overflow: hidden;
+    display: flex; gap: 0; align-items: stretch;
+    border: 1px solid #e0e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .evidence-photo img { width: 100%; display: block; object-fit: cover; }
+  .evidence-photo-label {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 20px 28px; background: var(--navy); color: white; min-width: 200px;
+    text-align: center;
+  }
+  .evidence-photo-label .label-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; color: var(--orange2); margin-bottom: 8px; }
+  .evidence-photo-label .label-body { font-size: 0.9rem; font-weight: 900; line-height: 1.5; }
+  .evidence-photo-label .label-note { font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-top: 8px; }
+  @media (max-width: 900px) {
+    .photo-gallery-grid { grid-template-columns: 1fr 1fr; }
+    .evidence-photo { flex-direction: column; }
+    .evidence-photo-label { min-width: unset; padding: 16px 20px; }
+  }
+  @media (max-width: 480px) {
+    .photo-gallery-grid { grid-template-columns: 1fr; }
+  }
+
   /* ===== ANIMATIONS ===== */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(30px); }
@@ -804,6 +884,7 @@
         <span class="dpf-press-unit">kPa</span>
       </div>
       <div class="dpf-status" id="dpf-status">詰まり検知 — クリーニング待機中</div>
+      <div style="font-size:0.65rem; color:rgba(255,255,255,0.35); margin-top:6px; letter-spacing:0.05em">※ これがDPFフィルター詰まりのサインです。基準値は10kPa以下。</div>
     </div>
 
     <!-- タグライン -->
@@ -820,11 +901,12 @@
     <span class="logo-badge">グッドワン特約店</span>
   </a>
   <nav>
-    <a href="#service">サービス</a>
-    <a href="#price">料金</a>
+    <a href="#service">サービス内容</a>
+    <a href="#price">料金表</a>
     <a href="#flow">施工の流れ</a>
+    <a href="#compare">他社比較</a>
     <a href="#area">対応エリア</a>
-    <a href="#faq">FAQ</a>
+    <a href="#faq">よくある質問</a>
     <a href="#contact" class="nav-cta">無料相談</a>
   </nav>
   <div class="header-right">
@@ -844,11 +926,11 @@
   <a href="#service">サービス内容</a>
   <a href="#price">料金表</a>
   <a href="#flow">施工の流れ</a>
-  <a href="#compare">他社との比較</a>
+  <a href="#compare">他社比較</a>
   <a href="#area">対応エリア</a>
   <a href="#faq">よくある質問</a>
   <a href="tel:0567553460" style="color:var(--orange2)">&#9742; 0567-55-3460（平日 8〜17時）</a>
-  <a href="#contact" class="m-cta">無料相談・見積りはこちら</a>
+  <a href="#contact" class="m-cta">無料相談</a>
 </nav>
 
 <!-- HERO -->
@@ -858,7 +940,7 @@
     <div class="fade-up">
       <div class="hero-eyebrow">
         <span class="live-dot"></span>
-        愛知県全域・出張施工
+        10台以上のトラックを持つ愛知の運送会社・建設会社社長へ
       </div>
       <h1>DPF洗浄を<br><span>2時間</span>で。<br>分解しない。<br>持ち込まない。</h1>
       <p class="hero-sub">
@@ -873,9 +955,10 @@
         <span class="badge">飛島村・豊橋の2拠点</span>
       </div>
       <div class="hero-btns">
-        <a href="#contact" class="btn-primary">📞 無料相談・見積り</a>
-        <a href="#evidence" class="btn-secondary">📊 実績データを見る</a>
+        <a href="tel:0567553460" class="btn-primary">📞 0567-55-3460 今すぐ電話</a>
+        <a href="#contact" class="btn-secondary">✉ 無料見積り・LINE相談</a>
       </div>
+      <p style="font-size:0.72rem; color:rgba(255,255,255,0.4); margin-top:10px;">平日 8:00〜17:00 ／ 見積りだけでも歓迎</p>
     </div>
 
     <div class="hero-stats fade-up-2">
@@ -934,6 +1017,7 @@
     <span class="trust-item"><span class="trust-icon">&#10003;</span>自社30台で実証済み</span>
     <span class="trust-item"><span class="trust-icon">&#10003;</span>施工後に数値レポートを即日納品</span>
     <span class="trust-item"><span class="trust-icon">&#10003;</span>グッドワン特約店・特許機材使用</span>
+    <span class="trust-item"><img src="images/logo-goodone.jpg" alt="グッドワン中部 有限会社コトブキ運輸" style="height:32px; border-radius:4px; vertical-align:middle;"></span>
   </div>
 </div>
 
@@ -943,15 +1027,15 @@
     <div class="section-eyebrow">PROBLEM</div>
     <h2 class="section-title">こんなお悩みありませんか？</h2>
     <div class="pain-grid">
-      <div class="pain-card">
+      <div class="pain-card featured">
         <div class="pain-icon">💸</div>
-        <h3>DPF交換の見積りが高すぎる</h3>
-        <p>ディーラーから「40〜100万円かかります」と言われ、毎回頭を抱えている。</p>
+        <h3>DPF交換の見積りが40〜100万円…</h3>
+        <p>ディーラーから「交換しか方法がない」と言われ、毎回高額請求に頭を抱えている。</p>
       </div>
-      <div class="pain-card">
+      <div class="pain-card featured">
         <div class="pain-icon">⏰</div>
-        <h3>修理中に車が何日も戻ってこない</h3>
-        <p>分解洗浄に出すと2〜5日かかる。その間の売上損失が馬鹿にならない。</p>
+        <h3>修理に出すと車が2〜5日戻らない</h3>
+        <p>分解洗浄の間は車両が止まる。1日3〜5万円の売上損失が何日も続く。</p>
       </div>
       <div class="pain-card">
         <div class="pain-icon">🔄</div>
@@ -1037,6 +1121,41 @@
   </div>
 </section>
 
+<!-- PHOTO GALLERY -->
+<section class="gallery-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">GALLERY</div>
+    <h2 class="section-title">施工フォトギャラリー</h2>
+    <p class="section-lead">実際の施工現場・使用製品の様子をご覧ください。</p>
+    <div class="photo-gallery-grid">
+      <div>
+        <div class="photo-gallery-item"><img src="images/photo1.jpg" alt="DPF差圧センサーへのホース接続作業"></div>
+        <p class="photo-caption">DPFへのアクセス作業</p>
+      </div>
+      <div>
+        <div class="photo-gallery-item"><img src="images/photo2.jpg" alt="施工後の排気クリーニング（白煙は薬剤燃焼の証拠）"></div>
+        <p class="photo-caption">施工後の排気（薬剤燃焼）</p>
+      </div>
+      <div>
+        <div class="photo-gallery-item"><img src="images/photo3.jpg" alt="ERC製品のAdBlueタンクへの注入作業"></div>
+        <p class="photo-caption">AdBlue系統への施工</p>
+      </div>
+      <div>
+        <div class="photo-gallery-item"><img src="images/photo4.jpg" alt="ERC DPFフラッシング剤とHinoトラック"></div>
+        <p class="photo-caption">現場への出張施工（Hino大型）</p>
+      </div>
+      <div>
+        <div class="photo-gallery-item"><img src="images/photo5.jpg" alt="施工で使用するERC製品一式"></div>
+        <p class="photo-caption">使用薬剤（ERC製品一式）</p>
+      </div>
+      <div>
+        <div class="photo-gallery-item"><img src="images/photo6.jpg" alt="ERC 2in1 AGRリクリーナー"></div>
+        <p class="photo-caption">ERC 2in1 AGRリクリーナー</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRICE -->
 <section id="price" class="price-bg">
   <div class="section-inner">
@@ -1086,15 +1205,57 @@
         </tr>
       </tbody>
     </table>
-    <p class="price-note">※ 出張費込み（愛知県内）。複数台同時施工は別途ご相談。税別表示。</p>
+    <p style="color:rgba(255,255,255,0.85); font-size:0.85rem; font-weight:700; margin-top:20px; text-align:center;">全て税別・消費税10%別途</p>
+    <p class="price-note">※ 出張費込み（愛知県内）。複数台同時施工は別途ご相談。</p>
+
+    <!-- モバイル用カード（480px以下で表示） -->
+    <div class="price-cards-mobile" style="display:none; flex-direction:column; gap:12px; margin-top:24px;">
+      <div style="background:rgba(255,122,26,0.15); border:2px solid var(--orange); border-radius:10px; padding:18px;">
+        <p style="font-size:0.65rem; color:var(--orange2); font-weight:900; letter-spacing:0.1em; margin-bottom:6px;">⭐ 最もお得・推奨</p>
+        <p style="color:white; font-size:1rem; font-weight:900; margin-bottom:12px;">セット施工（DPF＋水素）</p>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; text-align:center;">
+          <div style="background:rgba(255,255,255,0.07); border-radius:6px; padding:10px 6px;">
+            <p style="font-size:0.62rem; color:rgba(255,255,255,0.5); margin-bottom:4px;">小型 2〜4t</p>
+            <p style="font-size:1.1rem; font-weight:900; color:var(--orange2);">5万円</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.07); border-radius:6px; padding:10px 6px;">
+            <p style="font-size:0.62rem; color:rgba(255,255,255,0.5); margin-bottom:4px;">中型 4〜8t</p>
+            <p style="font-size:1.1rem; font-weight:900; color:var(--orange2);">6.5万円</p>
+          </div>
+          <div style="background:rgba(255,255,255,0.07); border-radius:6px; padding:10px 6px;">
+            <p style="font-size:0.62rem; color:rgba(255,255,255,0.5); margin-bottom:4px;">大型 10t〜</p>
+            <p style="font-size:1.1rem; font-weight:900; color:var(--orange2);">8万円</p>
+          </div>
+        </div>
+        <p style="font-size:0.72rem; color:rgba(255,255,255,0.5); margin-top:8px; text-align:center;">約2.5時間で完了</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:16px;">
+        <p style="color:white; font-size:0.9rem; font-weight:900; margin-bottom:10px;">DPF CLのみ</p>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px; text-align:center;">
+          <div><p style="font-size:0.6rem; color:rgba(255,255,255,0.4);">小型</p><p style="font-size:0.95rem; font-weight:700; color:white;">3.5万</p></div>
+          <div><p style="font-size:0.6rem; color:rgba(255,255,255,0.4);">中型</p><p style="font-size:0.95rem; font-weight:700; color:white;">4.5万</p></div>
+          <div><p style="font-size:0.6rem; color:rgba(255,255,255,0.4);">大型</p><p style="font-size:0.95rem; font-weight:700; color:white;">5.5万</p></div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:16px;">
+        <p style="color:white; font-size:0.9rem; font-weight:900; margin-bottom:10px;">水素 CLのみ</p>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px; text-align:center;">
+          <div><p style="font-size:0.6rem; color:rgba(255,255,255,0.4);">小型</p><p style="font-size:0.95rem; font-weight:700; color:white;">2.5万</p></div>
+          <div><p style="font-size:0.6rem; color:rgba(255,255,255,0.4);">中型</p><p style="font-size:0.95rem; font-weight:700; color:white;">3万</p></div>
+          <div><p style="font-size:0.6rem; color:rgba(255,255,255,0.4);">大型</p><p style="font-size:0.95rem; font-weight:700; color:white;">3.5万</p></div>
+        </div>
+      </div>
+    </div>
     <div style="margin-top:28px; display:grid; grid-template-columns:1fr 1fr; gap:16px;">
       <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:20px;">
-        <p style="font-size:0.75rem; color:var(--orange2); font-weight:700; letter-spacing:0.08em; margin-bottom:8px">COST MERIT</p>
+        <p style="font-size:0.75rem; color:var(--orange2); font-weight:700; letter-spacing:0.08em; margin-bottom:4px">COST MERIT</p>
+        <p style="font-size:0.8rem; color:rgba(255,255,255,0.55); margin-bottom:8px">1台あたりのコスト比較</p>
         <p style="color:white; font-size:0.88rem; font-weight:700; margin-bottom:4px">1台あたりのダウンタイムコストを含めると</p>
         <p style="color:rgba(255,255,255,0.6); font-size:0.8rem; line-height:1.6">10tトラック1台の1日売上損失は約3〜5万円。分解洗浄（2〜5日停止）のトータルコストは洗浄費＋ダウンタイムで<span style="color:#ff9966; font-weight:700">20〜40万円超</span>になる場合も。当社なら同日の運行再開が可能です。</p>
       </div>
       <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:20px;">
-        <p style="font-size:0.75rem; color:var(--orange2); font-weight:700; letter-spacing:0.08em; margin-bottom:8px">MULTIPLE UNITS</p>
+        <p style="font-size:0.75rem; color:var(--orange2); font-weight:700; letter-spacing:0.08em; margin-bottom:4px">MULTIPLE UNITS</p>
+        <p style="font-size:0.8rem; color:rgba(255,255,255,0.55); margin-bottom:8px">複数台まとめ施工</p>
         <p style="color:white; font-size:0.88rem; font-weight:700; margin-bottom:4px">複数台同時施工で出張費を効率化</p>
         <p style="color:rgba(255,255,255,0.6); font-size:0.8rem; line-height:1.6">同一拠点での複数台まとめ施工は、1台あたりの実質コストをさらに下げられます。5台以上の場合はまとめ見積りをご依頼ください。</p>
       </div>
@@ -1235,6 +1396,14 @@
         <div class="ev-desc">到着から施工完了・レポート送付まで最短2時間。ドライバーの待機時間を最小化。</div>
       </div>
     </div>
+    <div class="evidence-photo">
+      <img src="images/dpf-before-after.jpg" alt="DPFフィルター洗浄前後の比較（左：詰まった状態 右：洗浄後）">
+      <div class="evidence-photo-label">
+        <div class="label-title">BEFORE / AFTER</div>
+        <div class="label-body">DPFフィルター<br>洗浄前後の<br>実物比較</div>
+        <div class="label-note">左：詰まり状態<br>右：洗浄後</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1254,10 +1423,10 @@
           翌日から普通に仕事に使えたのが一番ありがたかった。
         </p>
         <div class="voice-meta">
-          <div class="voice-avatar" style="background:var(--steel); font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; letter-spacing:0.05em">K社</div>
+          <div class="voice-avatar" style="background:var(--steel); font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; letter-spacing:0.05em">K運送</div>
           <div>
-            <div class="voice-name">愛知県・中型運送会社</div>
-            <div class="voice-role">車両管理担当 様（保有15台）</div>
+            <div class="voice-name">愛知県・K運送（中型トラック会社）</div>
+            <div class="voice-role">車両管理担当 様・保有15台</div>
           </div>
         </div>
       </div>
@@ -1269,18 +1438,20 @@
           燃費も少し改善した気がします。年2回の定期契約にして、年間コストを管理できるようにしました。
         </p>
         <div class="voice-meta">
-          <div class="voice-avatar" style="background:var(--steel); font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; letter-spacing:0.05em">T社</div>
+          <div class="voice-avatar" style="background:var(--steel); font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; letter-spacing:0.05em">T建設</div>
           <div>
-            <div class="voice-name">愛知県・建設会社</div>
-            <div class="voice-role">総務部長 様（重機・トラック合計8台）</div>
+            <div class="voice-name">愛知県・T建設（重機・トラック8台）</div>
+            <div class="voice-role">総務部長 様</div>
           </div>
         </div>
       </div>
     </div>
-    <div style="margin-top:24px; background:var(--light); border:1px dashed #c0ccd8; border-radius:10px; padding:20px; text-align:center;">
-      <p style="font-size:0.82rem; color:#8a9ab0; font-weight:700">施工中・施工後の写真・動画を順次掲載予定</p>
-      <p style="font-size:0.78rem; color:#a0aab8; margin-top:4px">差圧値レポートの実物サンプルもお見せできます。まずはお気軽にお問い合わせください。</p>
+    <div style="margin-top:24px; display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
+      <div style="border-radius:8px; overflow:hidden; aspect-ratio:4/3;"><img src="images/photo1.jpg" alt="施工作業の様子" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+      <div style="border-radius:8px; overflow:hidden; aspect-ratio:4/3;"><img src="images/photo2.jpg" alt="施工中の排気の様子" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+      <div style="border-radius:8px; overflow:hidden; aspect-ratio:4/3;"><img src="images/dpf-before-after.jpg" alt="DPF洗浄ビフォーアフター" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
     </div>
+    <p style="font-size:0.78rem; color:#a0aab8; margin-top:12px; text-align:center;">差圧値レポートの実物サンプルもお見せできます。まずはお気軽にお問い合わせください。</p>
   </div>
 </section>
 
@@ -1419,10 +1590,17 @@
   </div>
 </footer>
 
-<!-- FLOAT CTA -->
+<!-- FLOAT CTA (デスクトップ) -->
 <div class="float-cta">
+  <div style="text-align:right; font-size:0.72rem; color:rgba(255,255,255,0.85); background:rgba(13,31,53,0.85); padding:5px 12px; border-radius:20px; font-weight:700; letter-spacing:0.04em;">即日見積り・出張費込み</div>
   <a href="tel:0567553460" class="float-btn float-tel">&#9742; 今すぐ電話</a>
-  <a href="#contact" class="float-btn float-line">LINE相談</a>
+  <a href="#contact" class="float-btn float-line">無料・見積りだけでもOK</a>
+</div>
+
+<!-- MOBILE STICKY TEL BAR -->
+<div class="mobile-tel-sticky">
+  <a href="tel:0567553460" class="mob-tel-btn">&#9742; 0567-55-3460</a>
+  <a href="#contact" class="mob-line-btn">✉ 無料見積り・相談</a>
 </div>
 
 <script>
