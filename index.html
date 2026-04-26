@@ -279,6 +279,96 @@
   .pain-card h3 { font-size: 0.88rem; font-weight: 900; color: var(--navy); margin-bottom: 6px; }
   .pain-card p { font-size: 0.8rem; color: #5a6a7a; line-height: 1.6; }
 
+  /* ===== DPF劣化4段階 ===== */
+  .dpf-stages { background: var(--navy2); }
+  .dpf-stages .section-title { color: white; text-align: center; }
+  .dpf-stages .section-eyebrow { text-align: center; }
+  .stages-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden;
+    margin-top: 40px; position: relative;
+  }
+  .stage-col {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 24px 16px 28px; position: relative;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  .stage-col:last-child { border-right: none; }
+  .stage-col.danger { background: rgba(200,30,30,0.08); }
+  .stage-bubble {
+    border-radius: 10px; padding: 10px 12px; margin-bottom: 14px;
+    font-size: 0.75rem; font-weight: 700; line-height: 1.5;
+    text-align: center; position: relative; min-height: 70px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .stage-bubble::after {
+    content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+    border: 6px solid transparent;
+  }
+  .stage-bubble.safe {
+    background: #e8f4fd; color: #1a5276; border: 1.5px solid #85c1e9;
+  }
+  .stage-bubble.safe::after { border-top-color: #85c1e9; }
+  .stage-bubble.best {
+    background: #eafaf1; color: #1e8449; border: 1.5px solid #58d68d;
+  }
+  .stage-bubble.best::after { border-top-color: #58d68d; }
+  .stage-bubble.warning {
+    background: #fef9e7; color: #b7770d; border: 1.5px solid #f0b429;
+  }
+  .stage-bubble.warning::after { border-top-color: #f0b429; }
+  .stage-bubble.danger-b {
+    background: #fdedec; color: #b03a2e; border: 1.5px solid #ec7063;
+  }
+  .stage-bubble.danger-b::after { border-top-color: #ec7063; }
+  .stage-best-tag {
+    background: var(--orange); color: white; font-size: 0.65rem; font-weight: 900;
+    padding: 3px 8px; border-radius: 20px; margin-top: 6px; display: inline-block;
+  }
+  .stage-num {
+    font-size: 0.7rem; font-weight: 900; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.05em; margin-bottom: 4px; margin-top: 10px;
+  }
+  .stage-label {
+    font-size: 0.88rem; font-weight: 900; color: white; text-align: center;
+    line-height: 1.4; margin-bottom: 18px;
+  }
+  .stage-icon {
+    width: 56px; height: 56px; background: #1a1200; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; margin-bottom: 16px;
+  }
+  .stage-light {
+    display: flex; gap: 6px; background: #ccc; border-radius: 20px;
+    padding: 6px 10px; margin-top: 4px;
+  }
+  .light-dot {
+    width: 18px; height: 18px; border-radius: 50%; background: #555;
+  }
+  .light-dot.green { background: #27ae60; box-shadow: 0 0 8px #27ae60; }
+  .light-dot.yellow { background: #f1c40f; box-shadow: 0 0 8px #f1c40f; }
+  .light-dot.red { background: #e74c3c; box-shadow: 0 0 8px #e74c3c; }
+  .stages-label-row {
+    display: flex; justify-content: space-between; margin-top: 12px;
+    padding: 0 4px;
+  }
+  .stages-label {
+    font-size: 0.72rem; font-weight: 900; padding: 4px 14px;
+    border-radius: 4px; letter-spacing: 0.05em;
+  }
+  .stages-label.early { background: #2e4a7a; color: white; }
+  .stages-label.late { background: #b03a2e; color: white; }
+  @media (max-width: 900px) {
+    .stages-grid { grid-template-columns: repeat(2, 1fr); }
+    .stage-col:nth-child(2) { border-right: none; }
+    .stage-col:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.1); }
+  }
+  @media (max-width: 480px) {
+    .stages-grid { grid-template-columns: 1fr; }
+    .stage-col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .stage-col:last-child { border-bottom: none; }
+  }
+
   /* ===== SOLUTION ===== */
   .solution-header { margin-bottom: 50px; }
   .service-cards {
@@ -1059,6 +1149,65 @@
         <h3>燃費が年々悪化している</h3>
         <p>軽油代が経費を圧迫。燃費改善できる方法を探している。</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- DPF STAGES -->
+<section class="dpf-stages" id="stages">
+  <div class="section-inner">
+    <div class="section-eyebrow">DPF DETERIORATION</div>
+    <h2 class="section-title" style="color:white;">DPF詰まりの進行と<span style="color:var(--orange2);">洗浄のベストタイミング</span></h2>
+    <p style="text-align:center; color:rgba(255,255,255,0.6); margin-top:-16px; margin-bottom:0; font-size:0.9rem;">放置するほど施工不可リスクが高まります。サインを見逃さないでください。</p>
+    <div class="stages-grid">
+      <div class="stage-col">
+        <div class="stage-bubble safe">洗浄時期です<br>早く担当に<br>連絡してください</div>
+        <div class="stage-num">STAGE 1</div>
+        <div class="stage-label">自動再生が<br>頻繁に入り始める</div>
+        <div class="stage-icon">🔶</div>
+        <div class="stage-light">
+          <div class="light-dot green"></div>
+          <div class="light-dot"></div>
+          <div class="light-dot"></div>
+        </div>
+      </div>
+      <div class="stage-col">
+        <div class="stage-bubble best">早急にクリーニングを実施してください<br><span class="stage-best-tag">洗浄のベストタイミング！</span></div>
+        <div class="stage-num">STAGE 2</div>
+        <div class="stage-label">手動再生が<br>入り始める</div>
+        <div class="stage-icon">🔶</div>
+        <div class="stage-light">
+          <div class="light-dot"></div>
+          <div class="light-dot yellow"></div>
+          <div class="light-dot"></div>
+        </div>
+      </div>
+      <div class="stage-col danger">
+        <div class="stage-bubble warning">末期症状です<br>助からないかも<br>しれません</div>
+        <div class="stage-num">STAGE 3</div>
+        <div class="stage-label">手動再生が<br>頻繁に入りだす</div>
+        <div class="stage-icon">🔶</div>
+        <div class="stage-light">
+          <div class="light-dot"></div>
+          <div class="light-dot"></div>
+          <div class="light-dot red"></div>
+        </div>
+      </div>
+      <div class="stage-col danger">
+        <div class="stage-bubble danger-b">クリーニング不可<br>マフラー交換の<br>可能性大</div>
+        <div class="stage-num">STAGE 4</div>
+        <div class="stage-label">エンジンチェック<br>ランプ点灯</div>
+        <div class="stage-icon">🔧</div>
+        <div class="stage-light">
+          <div class="light-dot"></div>
+          <div class="light-dot"></div>
+          <div class="light-dot red"></div>
+        </div>
+      </div>
+    </div>
+    <div class="stages-label-row">
+      <span class="stages-label early">◀ 初期段階</span>
+      <span class="stages-label late">末期症状 ▶</span>
     </div>
   </div>
 </section>
