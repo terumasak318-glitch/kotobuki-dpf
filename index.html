@@ -279,6 +279,17 @@
   .pain-card h3 { font-size: 0.88rem; font-weight: 900; color: var(--navy); margin-bottom: 6px; }
   .pain-card p { font-size: 0.8rem; color: #5a6a7a; line-height: 1.6; }
 
+  /* ビフォーアフターラベル */
+  .gallery-before-after { position: relative; }
+  .ba-label {
+    position: absolute; top: 8px; left: 8px;
+    background: rgba(13,31,53,0.75); color: #fff;
+    font-size: 0.75rem; font-weight: bold;
+    padding: 3px 10px; border-radius: 4px; letter-spacing: .05em;
+  }
+  .ba-label.ba-after { left: auto; right: 8px; background: rgba(224,90,0,0.85); }
+  .photo-caption { font-size: 0.78rem; color: #666; margin-top: 6px; text-align: center; }
+
   /* ===== DPF劣化4段階 ===== */
   .dpf-stages { background: var(--navy2); }
   .dpf-stages .section-title { color: white; text-align: center; }
@@ -1221,6 +1232,15 @@
       グッドワン正規特約店として、特許取得済みの機材と技術で施工します。
       自社30台のトラックで実証した技術を、そのままお客様の車両に提供します。
     </p>
+    <!-- ERC薬剤システム図 -->
+    <div style="max-width:820px; margin:0 auto 48px auto; text-align:center;">
+      <p style="font-size:0.8rem; letter-spacing:.1em; color:var(--orange); text-transform:uppercase; font-weight:700; margin-bottom:8px;">ERC PRODUCT SYSTEM</p>
+      <h3 style="font-size:1.2rem; margin-bottom:16px; color:var(--navy);">クリーニングが効く理由 — 5つの薬剤が全系統をカバー</h3>
+      <img src="images/erc-system-diagram.jpg" alt="ERCクリーニング薬剤のエンジン系統マップ（インジェクター・ターボ・DPF・水素カーボン・アドブルー）"
+        style="width:100%; max-width:800px; border-radius:10px; border:1px solid #ddd; box-shadow:0 4px 16px rgba(0,0,0,.08);" loading="lazy">
+      <p style="font-size:0.85rem; color:#666; margin-top:12px;">※ 使用薬剤はすべてERC社製（ドイツ製）。グッドワン正規特約店として仕入れ・施工しています。</p>
+    </div>
+
     <div class="service-cards">
       <div class="service-card">
         <div class="card-head">
@@ -1302,6 +1322,20 @@
       <div>
         <div class="photo-gallery-item"><img src="images/photo6.jpg" alt="ERC 2in1 AGRリクリーナー"></div>
         <p class="photo-caption">ERC 2in1 AGRリクリーナー</p>
+      </div>
+      <div>
+        <div class="photo-gallery-item gallery-before-after">
+          <img src="images/engine-before-after.jpg" alt="水素カーボンクリーニング エンジン燃焼室 施工前後比較" style="width:100%;height:100%;object-fit:cover;">
+          <div class="ba-label">施工前</div>
+          <div class="ba-label ba-after">施工後</div>
+        </div>
+        <p class="photo-caption">エンジン燃焼室（水素カーボンクリーニング前後）</p>
+      </div>
+      <div>
+        <div class="photo-gallery-item">
+          <img src="images/injector-before-after.jpg" alt="インジェクター 施工前後比較" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <p class="photo-caption">インジェクター（燃料系統クリーニング前後）</p>
       </div>
     </div>
   </div>
@@ -1554,6 +1588,27 @@
         <div class="label-body">DPFフィルター<br>洗浄前後の<br>実物比較</div>
         <div class="label-note">左：詰まり状態<br>右：洗浄後</div>
       </div>
+    </div>
+
+    <!-- エンジン燃焼室 ビフォーアフター -->
+    <div style="margin-top:32px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:28px;">
+      <div style="text-align:center; margin-bottom:16px;">
+        <span style="font-size:0.75rem; letter-spacing:.1em; color:var(--orange2); font-weight:700; text-transform:uppercase;">BEFORE / AFTER</span>
+        <h4 style="font-size:1.05rem; color:white; margin:6px 0 4px;">エンジン燃焼室のカーボン堆積 — 水素クリーニング前後</h4>
+        <p style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin:0;">真っ黒なカーボン堆積が、水素との化学反応で除去されます。</p>
+      </div>
+      <img src="images/engine-before-after.jpg" alt="エンジン燃焼室 水素カーボンクリーニング 施工前後" style="width:100%; border-radius:8px; display:block;" loading="lazy">
+      <p style="font-size:0.8rem; text-align:center; color:rgba(255,255,255,0.4); margin-top:10px;">左：施工前（カーボン堆積）　右：施工後（洗浄完了）</p>
+    </div>
+
+    <!-- インジェクター ビフォーアフター -->
+    <div style="margin-top:20px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:28px;">
+      <div style="text-align:center; margin-bottom:16px;">
+        <span style="font-size:0.75rem; letter-spacing:.1em; color:var(--orange2); font-weight:700; text-transform:uppercase;">BEFORE / AFTER</span>
+        <h4 style="font-size:1.05rem; color:white; margin:6px 0 4px;">インジェクター — 燃料系統クリーニング前後</h4>
+        <p style="font-size:0.85rem; color:rgba(255,255,255,0.5); margin:0;">インジェクター噴射補正値が正常範囲に戻ることで、燃費が改善します。</p>
+      </div>
+      <img src="images/injector-before-after.jpg" alt="インジェクター 燃料系統クリーニング 施工前後" style="width:100%; border-radius:8px; display:block;" loading="lazy">
     </div>
   </div>
 </section>
