@@ -500,6 +500,7 @@
     border-radius: 12px; overflow: hidden;
     border: 1px solid #e0e8f0;
   }
+  .kotobuki-value { color: #1B5E20; font-weight: bold; }
   .compare-card.us {
     border-color: var(--orange);
     box-shadow: 0 8px 32px rgba(224,90,0,0.15);
@@ -761,6 +762,7 @@
     section { padding: 60px 20px; }
     .service-cards { grid-template-columns: 1fr; }
     .compare-grid { grid-template-columns: 1fr; }
+    .compare-card.us { order: -1; }
     .evidence-cards { grid-template-columns: 1fr 1fr; }
     .voice-grid { grid-template-columns: 1fr; }
     .area-content { grid-template-columns: 1fr; }
@@ -789,8 +791,11 @@
     .cta-btns { flex-direction: column; align-items: center; }
     .pain-grid { grid-template-columns: 1fr; }
     .compare-grid { grid-template-columns: 1fr; }
+    .compare-card.us { order: -1; }
     .price-table { display: none; }
     .price-cards-mobile { display: flex !important; }
+    .footer-top { flex-direction: column; gap: 24px; }
+    .footer-brand p { max-width: 100%; }
   }
 
   /* ===== DPF INTRO ANIMATION ===== */
@@ -1399,7 +1404,8 @@
     <div class="price-section-extra" id="price-chemicals">
       <h3 style="font-size:1.1rem; color:rgba(255,255,255,0.9); margin:40px 0 8px;">&#128138; ERC薬剤（添加剤）料金表</h3>
       <p style="font-size:0.8rem; color:rgba(255,255,255,0.45); margin-bottom:12px;">※ 全て税別。通販ショップでご購入いただけます。</p>
-      <table style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+      <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+      <table style="width:100%; min-width:420px; border-collapse:collapse; font-size:0.9rem;">
         <thead>
           <tr style="background:#1A3A5C; color:#fff;">
             <th style="padding:8px 12px; text-align:left;">商品名</th>
@@ -1430,13 +1436,15 @@
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
 
     <!-- 低燃費タイヤ料金表 -->
     <div class="price-section-extra" id="price-tires">
       <h3 style="font-size:1.1rem; color:rgba(255,255,255,0.9); margin:32px 0 8px;">&#128667; トラック低燃費タイヤ 料金表</h3>
       <p style="font-size:0.8rem; color:rgba(255,255,255,0.45); margin-bottom:12px;">※ 全て税別・1本あたり。通販ショップでご購入いただけます。</p>
-      <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+      <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+      <table style="width:100%; min-width:420px; border-collapse:collapse; font-size:0.85rem;">
         <thead>
           <tr style="background:#1A3A5C; color:#fff;">
             <th style="padding:8px 12px; text-align:left;">商品名・サイズ</th>
@@ -1461,6 +1469,7 @@
           <tr><td style="padding:8px 12px; color:rgba(255,255,255,0.85);">AZ534　225/80R 17.5</td><td style="padding:8px 12px; text-align:right; font-weight:bold; color:var(--orange2);">¥23,600</td><td style="padding:8px 12px; color:rgba(255,255,255,0.5);">低燃費オールシーズン</td></tr>
         </tbody>
       </table>
+      </div>
       <p style="text-align:center; margin-top:16px;">
         <a href="https://kotobukiunyu.buyshop.jp" target="_blank" style="color:var(--orange2); font-weight:bold;">&#128722; 通販ショップで購入・詳細を確認する →</a>
       </p>
@@ -1564,11 +1573,11 @@
           <div class="tag">当社の出張施工</div>
         </div>
         <div class="compare-body">
-          <div class="compare-row"><span class="compare-key">費用</span><span class="compare-val best">5〜8万円</span></div>
-          <div class="compare-row"><span class="compare-key">時間</span><span class="compare-val best">約2〜2.5時間</span></div>
-          <div class="compare-row"><span class="compare-key">車両停止</span><span class="compare-val best">ほぼゼロ</span></div>
-          <div class="compare-row"><span class="compare-key">持ち込み</span><span class="compare-val best">不要・出張</span></div>
-          <div class="compare-row"><span class="compare-key">数値証明</span><span class="compare-val best">差圧値で証明</span></div>
+          <div class="compare-row"><span class="compare-key">費用</span><span class="compare-val best kotobuki-value">5〜8万円</span></div>
+          <div class="compare-row"><span class="compare-key">時間</span><span class="compare-val best kotobuki-value">約2〜2.5時間</span></div>
+          <div class="compare-row"><span class="compare-key">車両停止</span><span class="compare-val best kotobuki-value">ほぼゼロ</span></div>
+          <div class="compare-row"><span class="compare-key">持ち込み</span><span class="compare-val best kotobuki-value">不要・出張</span></div>
+          <div class="compare-row"><span class="compare-key">数値証明</span><span class="compare-val best kotobuki-value">差圧値で証明</span></div>
         </div>
       </div>
     </div>
@@ -1959,21 +1968,34 @@
     });
   });
 
+  const cardSelector = '.service-card, .pain-card, .ev-card, .voice-card, .compare-card';
   const observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting) {
         e.target.style.opacity = '1';
         e.target.style.transform = 'translateY(0)';
+        observer.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.service-card, .pain-card, .ev-card, .voice-card, .compare-card').forEach(function(el) {
+  document.querySelectorAll(cardSelector).forEach(function(el) {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
   });
+
+  /* フォールバック: スクロール不要で既に画面内にあるカードを即表示 */
+  setTimeout(function() {
+    document.querySelectorAll(cardSelector).forEach(function(el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }
+    });
+  }, 400);
 </script>
 </body>
 </html>
