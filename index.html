@@ -544,6 +544,7 @@
     background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
     border-radius: 12px; padding: 28px;
     transition: transform 0.2s;
+    opacity: 1 !important; visibility: visible !important;
   }
   .ev-card:hover { transform: translateY(-4px); }
   .ev-kpi { display: flex; align-items: baseline; gap: 6px; margin-bottom: 8px; }
@@ -562,6 +563,7 @@
     box-shadow: 0 2px 16px rgba(0,0,0,0.07);
     border-top: 4px solid var(--orange);
     position: relative;
+    opacity: 1 !important; visibility: visible !important;
   }
   .voice-quote {
     font-size: 3rem; color: var(--orange); opacity: 0.2;
@@ -1967,7 +1969,8 @@
     });
   });
 
-  const cardSelector = '.service-card, .pain-card, .ev-card, .voice-card, .compare-card';
+  /* ev-card と voice-card はCSS側で opacity:1 を保証しているためアニメーション対象から除外 */
+  const cardSelector = '.service-card, .pain-card, .compare-card';
   const observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
       if (e.isIntersecting) {
