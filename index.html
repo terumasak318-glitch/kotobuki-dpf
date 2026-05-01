@@ -942,7 +942,146 @@
     border-radius: 50%; background: var(--orange2);
     animation: pulse-dot 1.5s ease infinite;
   }
+
+  /* ===== INLINE CTA ===== */
+  .inline-cta, .inline-cta-dark {
+    margin-top: 40px; padding: 22px 28px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .inline-cta {
+    background: rgba(224,90,0,0.06);
+    border: 1px solid rgba(224,90,0,0.22);
+  }
+  .inline-cta-dark {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .inline-cta p { font-size: 0.88rem; font-weight: 700; color: var(--navy); }
+  .inline-cta-dark p { font-size: 0.88rem; font-weight: 700; color: rgba(255,255,255,0.85); }
+  .inline-cta p span { color: var(--orange); }
+  .inline-cta-dark p span { color: var(--orange2); }
+  .inline-cta-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-cta-sm {
+    padding: 10px 20px; border-radius: 5px; font-weight: 900;
+    font-size: 0.82rem; text-decoration: none; display: inline-flex;
+    align-items: center; gap: 6px; transition: transform 0.2s;
+  }
+  .btn-cta-sm:hover { transform: translateY(-1px); }
+  .btn-cta-sm.btn-orange { background: var(--orange); color: white; }
+  .btn-cta-sm.btn-green { background: #06c755; color: white; }
+
+  /* ===== HERO TRUST STRIP ===== */
+  .hero-trust-strip {
+    display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+    margin-top: 14px;
+  }
+  .hero-trust-strip span {
+    font-size: 0.76rem; font-weight: 700; color: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+    padding: 5px 13px; border-radius: 20px; letter-spacing: 0.04em;
+  }
+
+  /* ===== VOICE STARS ===== */
+  .voice-stars { color: #f1c40f; font-size: 1rem; margin-bottom: 8px; letter-spacing: 2px; }
+
+  /* ===== PRICE DETAILS TOGGLE ===== */
+  .price-details { margin-top: 32px; }
+  .price-details > summary {
+    cursor: pointer; list-style: none;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.9);
+    font-size: 1rem; font-weight: 900;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.2s;
+  }
+  .price-details > summary:hover { background: rgba(255,255,255,0.1); }
+  .price-details > summary::-webkit-details-marker { display: none; }
+  .price-details > summary::marker { display: none; }
+  .price-details > summary::after { content: '＋'; color: var(--orange2); font-size: 1.2rem; font-weight: 300; }
+  .price-details[open] > summary { border-radius: 8px 8px 0 0; border-bottom: none; }
+  .price-details[open] > summary::after { content: '－'; }
+  .price-details > p, .price-details > div {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-top: none;
+  }
+  .price-details > div:last-child { border-radius: 0 0 8px 8px; }
+
+  /* ===== PRICE CARDS DESKTOP ===== */
+  @media (min-width: 481px) {
+    .price-cards-mobile {
+      flex-direction: row !important;
+    }
+    .price-cards-mobile > div:first-child { flex: 1.4; }
+    .price-cards-mobile > div:not(:first-child) { flex: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .inline-cta, .inline-cta-dark { flex-direction: column; }
+    .inline-cta-btns { width: 100%; }
+    .btn-cta-sm { flex: 1; justify-content: center; }
+  }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "DPFを分解しないで本当に効果があるのですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "はい。施工前後の差圧値を数値で記録し、レポートとして納品します。当社自身が自社の30台のトラックで定期施工しており、39kPa → 6.0kPaへの改善をはじめ多数の実績データがあります。ただし、症状が重度の場合や効果が見込めない場合は事前のヒアリングでお伝えします。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "水素をエンジンに入れて爆発しませんか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "安全に施工できます。エンジンに吸気された水素はカーボンと化学反応して炭化水素となり燃焼します。水素自体が火に反応することはありません。グッドワンの特許取得機材を使用しています。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "何台まとめて施工できますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "1台からご対応します。複数台をまとめていただくと出張費の効率が上がり、割引のご相談も可能です。5台以上の場合はまとめ見積りをご依頼ください。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "チェックランプが点灯している車両でも施工できますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "チェックランプ点灯まで進行している車両には、施工しても効果が得られない可能性があります。事前ヒアリングで車両状態を確認した上で、施工の可否をお伝えします。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "定期契約とはどのようなものですか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "年2回の定期施工をパッケージにした契約です。定期的に施工することでDPFへの負担を軽減し、交換サイクルを延ばすことが期待できます。施工のたびに差圧値を記録するため、車両の状態を数値で継続管理できます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "効果が出なかった場合はどうなりますか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "事前ヒアリングと差圧チェックで効果が見込めるかを判断してから施工に入ります。万が一期待通りの結果が出なかった場合は、別途ご相談ください。"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -1069,9 +1208,14 @@
       </div>
       <div class="hero-btns">
         <a href="tel:0567553460" class="btn-primary">📞 0567-55-3460 今すぐ電話</a>
-        <a href="#contact" class="btn-secondary">✉ 無料見積り・LINE相談</a>
+        <a href="#contact" class="btn-secondary">💬 無料見積り・LINE相談</a>
       </div>
-      <p class="hero-reassurance">しつこい営業ゼロ・見積りだけでもOK</p>
+      <div class="hero-trust-strip">
+        <span>✓ 0円診断</span>
+        <span>✓ 断りなし</span>
+        <span>✓ しつこい営業ゼロ</span>
+        <span>✓ 見積りだけでもOK</span>
+      </div>
       <p style="font-size:0.72rem; color:rgba(255,255,255,0.4); margin-top:10px;">平日 8:00〜17:00 ／ 見積りだけでも歓迎</p>
     </div>
 
@@ -1170,6 +1314,13 @@
         <div class="pain-icon">⛽</div>
         <h3>燃費が年々悪化している</h3>
         <p>軽油代が経費を圧迫。燃費改善できる方法を探している。</p>
+      </div>
+    </div>
+    <div class="inline-cta">
+      <p><span>まずは0円診断・断りなし。</span>車種・台数・症状をお知らせください。</p>
+      <div class="inline-cta-btns">
+        <a href="tel:0567553460" class="btn-cta-sm btn-orange">📞 今すぐ電話</a>
+        <a href="https://lin.ee/pYhSr15" class="btn-cta-sm btn-green">💬 LINE相談（無料）</a>
       </div>
     </div>
   </div>
@@ -1306,6 +1457,13 @@
       <a href="https://kotobukiunyu.buyshop.jp" target="_blank" style="display:inline-block; background:#2E75B6; color:#fff; padding:12px 32px; border-radius:4px; text-decoration:none; font-weight:bold;">ショップを見る →</a>
       <p style="font-size:0.75rem; color:#999; margin-top:8px;">※ 別サイト（BASE）が開きます</p>
     </div>
+    <div class="inline-cta">
+      <p><span>まずは0円診断・断りなし。</span>効果の見込みと費用をお伝えします。</p>
+      <div class="inline-cta-btns">
+        <a href="tel:0567553460" class="btn-cta-sm btn-orange">📞 今すぐ電話</a>
+        <a href="https://lin.ee/pYhSr15" class="btn-cta-sm btn-green">💬 LINE相談（無料）</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1351,7 +1509,7 @@
     <p class="price-note">※ 出張費込み（愛知県内）。複数台同時施工は別途ご相談。</p>
 
     <!-- モバイル用カード（480px以下で表示） -->
-    <div class="price-cards-mobile" style="display:none; flex-direction:column; gap:12px; margin-top:24px;">
+    <div class="price-cards-mobile" style="display:flex; flex-direction:column; gap:12px; margin-top:24px;">
       <div style="background:rgba(255,122,26,0.15); border:2px solid var(--orange); border-radius:10px; padding:18px;">
         <p style="font-size:0.65rem; color:var(--orange2); font-weight:900; letter-spacing:0.1em; margin-bottom:6px;">⭐ 最もお得・推奨</p>
         <p style="color:white; font-size:1rem; font-weight:900; margin-bottom:12px;">セット施工（DPF＋水素）</p>
@@ -1403,9 +1561,9 @@
       </div>
     </div>
     <!-- ERC薬剤料金表 -->
-    <div class="price-section-extra" id="price-chemicals">
-      <h3 style="font-size:1.1rem; color:rgba(255,255,255,0.9); margin:40px 0 8px;">&#128138; ERC薬剤（添加剤）料金表</h3>
-      <p style="font-size:0.8rem; color:rgba(255,255,255,0.45); margin-bottom:12px;">※ 全て税別。通販ショップでご購入いただけます。</p>
+    <details class="price-details" id="price-chemicals">
+      <summary>💊 ERC薬剤（添加剤）料金表 <span style="font-size:0.72rem; color:rgba(255,255,255,0.4); font-weight:400">（タップで開閉）</span></summary>
+      <p style="font-size:0.8rem; color:rgba(255,255,255,0.45); margin-bottom:12px; padding:12px 20px 0;">※ 全て税別。通販ショップでご購入いただけます。</p>
       <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
       <table style="width:100%; min-width:420px; border-collapse:collapse; font-size:0.9rem;">
         <thead>
@@ -1439,12 +1597,12 @@
         </tbody>
       </table>
       </div>
-    </div>
+    </details>
 
     <!-- 低燃費タイヤ料金表 -->
-    <div class="price-section-extra" id="price-tires">
-      <h3 style="font-size:1.1rem; color:rgba(255,255,255,0.9); margin:32px 0 8px;">&#128667; トラック低燃費タイヤ 料金表</h3>
-      <p style="font-size:0.8rem; color:rgba(255,255,255,0.45); margin-bottom:12px;">※ 全て税別・1本あたり。通販ショップでご購入いただけます。</p>
+    <details class="price-details" id="price-tires">
+      <summary>🚛 トラック低燃費タイヤ 料金表 <span style="font-size:0.72rem; color:rgba(255,255,255,0.4); font-weight:400">（タップで開閉）</span></summary>
+      <p style="font-size:0.8rem; color:rgba(255,255,255,0.45); margin-bottom:12px; padding:12px 20px 0;">※ 全て税別・1本あたり。通販ショップでご購入いただけます。</p>
       <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
       <table style="width:100%; min-width:420px; border-collapse:collapse; font-size:0.85rem;">
         <thead>
@@ -1472,7 +1630,7 @@
         </tbody>
       </table>
       </div>
-    </div>
+    </details>
 
     <!-- ショップへのリンク（統合） -->
     <div style="text-align:center; margin-top:32px; padding:20px; border-top:2px solid #2E75B6; background:#f0f7ff; border-radius:0 0 8px 8px;">
@@ -1582,6 +1740,13 @@
         </div>
       </div>
     </div>
+    <div class="inline-cta">
+      <p><span>まずは0円診断・断りなし。</span>他社より圧倒的に安く・早く対応します。</p>
+      <div class="inline-cta-btns">
+        <a href="tel:0567553460" class="btn-cta-sm btn-orange">📞 今すぐ電話</a>
+        <a href="https://lin.ee/pYhSr15" class="btn-cta-sm btn-green">💬 LINE相談（無料）</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1617,6 +1782,13 @@
         <div class="ev-desc">到着から施工完了・レポート送付まで最短2時間。ドライバーの待機時間を最小化。</div>
       </div>
     </div>
+    <div class="inline-cta-dark">
+      <p><span>自社30台で実証済みの技術。</span>まずは1台で効果を確かめてください。</p>
+      <div class="inline-cta-btns">
+        <a href="tel:0567553460" class="btn-cta-sm btn-orange">📞 今すぐ電話</a>
+        <a href="https://lin.ee/pYhSr15" class="btn-cta-sm btn-green">💬 LINE相談（無料）</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1629,6 +1801,7 @@
     <p style="font-size:0.78rem; color:#8a9ab0; margin-bottom:36px">※ お客様のご要望によりお名前・会社名は伏せています。施工レポートデータは実データです。</p>
     <div class="voice-grid">
       <div class="voice-card">
+        <div class="voice-stars">★★★★★</div>
         <div class="voice-quote">"</div>
         <p class="voice-text">
           分解洗浄に出すと最低でも2日かかっていたので、2時間で終わると聞いたときは半信半疑でした。
@@ -1644,6 +1817,7 @@
         </div>
       </div>
       <div class="voice-card">
+        <div class="voice-stars">★★★★★</div>
         <div class="voice-quote">"</div>
         <p class="voice-text">
           DPF交換の見積りが80万円だったので、試しにセット施工を依頼しました。
@@ -1670,6 +1844,13 @@
     </figure>
     -->
     <p style="font-size:0.78rem; color:#a0aab8; margin-top:12px; text-align:center;">差圧値レポートの実物サンプルもお見せできます。まずはお気軽にお問い合わせください。</p>
+    <div class="inline-cta">
+      <p><span>まずは0円診断・断りなし。</span>お客様と同じ立場で考えます。</p>
+      <div class="inline-cta-btns">
+        <a href="tel:0567553460" class="btn-cta-sm btn-orange">📞 今すぐ電話</a>
+        <a href="https://lin.ee/pYhSr15" class="btn-cta-sm btn-green">💬 LINE相談（無料）</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1819,7 +2000,7 @@
 <!-- MOBILE STICKY TEL BAR -->
 <div class="mobile-tel-sticky">
   <a href="tel:0567553460" class="mob-tel-btn">&#9742; 0567-55-3460</a>
-  <a href="https://lin.ee/pYhSr15" class="mob-line-btn">✉ 無料・見積りだけでもOK</a>
+  <a href="https://lin.ee/pYhSr15" class="mob-line-btn">💬 無料・見積りだけでもOK</a>
 </div>
 
 <script>
