@@ -2196,23 +2196,6 @@
   defer>
 </script>
 <style>
-  /* Dify ボタン: positionは触らずoverflow:hiddenのみ */
-  #dify-chatbot-bubble-button {
-    overflow: hidden !important;
-    z-index: 190 !important;
-  }
-  /* デフォルトSVGを透明化（非表示にすると隙間ができる場合があるため） */
-  #dify-chatbot-bubble-button svg { opacity: 0 !important; }
-  /* カスタムアイコン */
-  #dify-custom-icon {
-    position: absolute !important;
-    top: 0 !important; left: 0 !important;
-    width: 100% !important; height: 100% !important;
-    object-fit: cover !important;
-    border-radius: 50% !important;
-    pointer-events: none !important;
-    z-index: 1 !important;
-  }
   /* チャット窓 */
   #dify-chatbot-bubble-window {
     z-index: 191 !important;
@@ -2230,6 +2213,7 @@
 (function() {
   var GAP_BOTTOM = 88;
   var GAP_TOP    = 72;
+  var ICON_URL   = 'images/kotobuki-dpf.jpg';
 
   function pinWindow(w) {
     var maxH = window.innerHeight - GAP_BOTTOM - GAP_TOP;
@@ -2241,28 +2225,26 @@
     w.style.setProperty('height',     Math.min(640, maxH) + 'px', 'important');
   }
 
-  function injectIcon(btn) {
-    if (document.getElementById('dify-custom-icon')) return;
-    /* ボタン自体に position:relative がなければ追加（fixed要素でも子のabsoluteは機能する） */
-    var cs = window.getComputedStyle(btn).position;
-    if (cs !== 'relative' && cs !== 'absolute' && cs !== 'fixed') {
-      btn.style.position = 'relative';
-    }
-    var img = document.createElement('img');
-    img.id  = 'dify-custom-icon';
-    img.src = 'images/kotobuki-dpf.jpg';
-    btn.appendChild(img);
+  /* インラインstyle !important でアイコン適用（最高優先度） */
+  function applyIcon(btn) {
+    btn.style.setProperty('background-image',    "url('" + ICON_URL + "')", 'important');
+    btn.style.setProperty('background-size',     'cover',  'important');
+    btn.style.setProperty('background-position', 'center', 'important');
+    btn.style.setProperty('overflow',            'hidden', 'important');
+    /* SVGを非表示 */
+    var svg = btn.querySelector('svg');
+    if (svg) svg.style.setProperty('display', 'none', 'important');
   }
 
-  /* ===== カスタムアイコンを挿入 ===== */
+  /* ===== ボタン検出 ===== */
   var iconTimer = setInterval(function() {
     var btn = document.getElementById('dify-chatbot-bubble-button');
     if (!btn) return;
     clearInterval(iconTimer);
-    injectIcon(btn);
-    /* Difyがボタンを再描画したときも再挿入 */
-    new MutationObserver(function() { injectIcon(btn); })
-      .observe(btn, { childList: true });
+    applyIcon(btn);
+    /* Difyが再描画しても即再適用 */
+    new MutationObserver(function() { applyIcon(btn); })
+      .observe(btn, { attributes: true, childList: true, attributeFilter: ['style'] });
   }, 150);
 
   var timer = setInterval(function() {
