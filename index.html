@@ -708,8 +708,8 @@
 
   /* ===== FLOAT CTA ===== */
   .float-cta {
-    position: fixed; bottom: 24px; right: 24px; z-index: 200;
-    display: flex; flex-direction: column; gap: 10px; align-items: flex-end;
+    position: fixed; bottom: 24px; left: 24px; z-index: 200;
+    display: flex; flex-direction: column; gap: 10px; align-items: flex-start;
   }
   .float-btn {
     display: flex; align-items: center; gap: 8px;
@@ -2196,41 +2196,52 @@
   defer>
 </script>
 <style>
-  /* Dify ボタン：右側CTAと重ならないよう左下に配置 */
+  /* Dify ボタン：右下（デフォルト位置のまま）*/
   #dify-chatbot-bubble-button {
     background-color: #1C64F2 !important;
-    position: fixed !important;
-    left: 24px !important;
-    right: auto !important;
-    bottom: 24px !important;
     z-index: 190 !important;
   }
-  /* チャット窓：スクロールしても固定されるよう強制指定 */
+  /* チャット窓：サイズのみ制御（位置はJSで固定）*/
   #dify-chatbot-bubble-window {
-    position: fixed !important;
-    left: 24px !important;
-    right: auto !important;
-    bottom: 88px !important;
-    top: auto !important;
-    width: 24rem !important;
-    height: 40rem !important;
     z-index: 191 !important;
-    transform: none !important;
+    width: 24rem !important;
+    max-width: calc(100vw - 32px) !important;
   }
-  /* スマホ：モバイル下部バー（76px）の上に逃がす */
+  /* スマホ */
   @media (max-width: 900px) {
-    #dify-chatbot-bubble-button {
-      bottom: 84px !important;
-      left: 16px !important;
-    }
     #dify-chatbot-bubble-window {
-      left: 8px !important;
-      bottom: 148px !important;
-      width: calc(100vw - 16px) !important;
-      height: 60vh !important;
+      width: calc(100vw - 24px) !important;
     }
   }
 </style>
+<script>
+/* ===== Dify チャット窓を右下に固定するJS ===== */
+(function() {
+  var GAP_BOTTOM = 88;   /* ボタン上の余白 px */
+  var GAP_TOP    = 72;   /* ヘッダー下の余白 px */
+
+  function pinWindow(w) {
+    var maxH = window.innerHeight - GAP_BOTTOM - GAP_TOP;
+    w.style.setProperty('position', 'fixed',  'important');
+    w.style.setProperty('bottom',   GAP_BOTTOM + 'px', 'important');
+    w.style.setProperty('top',      'auto',   'important');
+    w.style.setProperty('right',    '16px',   'important');
+    w.style.setProperty('max-height', maxH + 'px', 'important');
+    w.style.setProperty('height',   Math.min(640, maxH) + 'px', 'important');
+  }
+
+  var timer = setInterval(function() {
+    var w = document.getElementById('dify-chatbot-bubble-window');
+    if (!w) return;
+    clearInterval(timer);
+    pinWindow(w);
+    /* Difyが style を変更したら即座に再適用 */
+    new MutationObserver(function() { pinWindow(w); })
+      .observe(w, { attributes: true, attributeFilter: ['style', 'class'] });
+    window.addEventListener('resize', function() { pinWindow(w); });
+  }, 150);
+})();
+</script>
 <!-- ===== DIFY ここまで ===== -->
 </body>
 </html>
