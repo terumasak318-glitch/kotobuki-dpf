@@ -2196,12 +2196,39 @@
   defer>
 </script>
 <style>
+  /* Dify ボタン：右側CTAと重ならないよう左下に配置 */
   #dify-chatbot-bubble-button {
     background-color: #1C64F2 !important;
+    position: fixed !important;
+    left: 24px !important;
+    right: auto !important;
+    bottom: 24px !important;
+    z-index: 190 !important;
   }
+  /* チャット窓：スクロールしても固定されるよう強制指定 */
   #dify-chatbot-bubble-window {
+    position: fixed !important;
+    left: 24px !important;
+    right: auto !important;
+    bottom: 88px !important;
+    top: auto !important;
     width: 24rem !important;
     height: 40rem !important;
+    z-index: 191 !important;
+    transform: none !important;
+  }
+  /* スマホ：モバイル下部バー（76px）の上に逃がす */
+  @media (max-width: 900px) {
+    #dify-chatbot-bubble-button {
+      bottom: 84px !important;
+      left: 16px !important;
+    }
+    #dify-chatbot-bubble-window {
+      left: 8px !important;
+      bottom: 148px !important;
+      width: calc(100vw - 16px) !important;
+      height: 60vh !important;
+    }
   }
 </style>
 <!-- ===== DIFY ここまで ===== -->
