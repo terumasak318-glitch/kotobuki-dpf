@@ -2199,7 +2199,15 @@
   /* Dify ボタン：右下（デフォルト位置のまま）*/
   #dify-chatbot-bubble-button {
     background-color: #1C64F2 !important;
+    background-image: url('images/logo-goodone.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
     z-index: 190 !important;
+  }
+  /* ボタン内のデフォルトアイコン（SVG）を非表示 */
+  #dify-chatbot-bubble-button svg,
+  #dify-chatbot-bubble-button img:not([src*="logo-goodone"]) {
+    display: none !important;
   }
   /* チャット窓：サイズのみ制御（位置はJSで固定）*/
   #dify-chatbot-bubble-window {
