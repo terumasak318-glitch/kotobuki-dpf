@@ -2196,24 +2196,47 @@
   defer>
 </script>
 <style>
+  /* Difyデフォルトボタンは完全に隠す */
+  #dify-chatbot-bubble-button { display: none !important; }
   /* チャット窓 */
   #dify-chatbot-bubble-window {
-    z-index: 191 !important;
+    z-index: 9999 !important;
     width: 24rem !important;
     max-width: calc(100vw - 32px) !important;
   }
   @media (max-width: 900px) {
-    #dify-chatbot-bubble-window {
-      width: calc(100vw - 24px) !important;
-    }
+    #dify-chatbot-bubble-window { width: calc(100vw - 24px) !important; }
+  }
+  /* 自前のカスタムボタン */
+  #ktb-chat-btn {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 9998;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    border: none; padding: 0; background: none;
+  }
+  #ktb-chat-btn img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  @media (max-width: 900px) {
+    #ktb-chat-btn { bottom: 84px; right: 16px; }
   }
 </style>
+
+<!-- カスタムチャットボタン（KTBロゴ） -->
+<button id="ktb-chat-btn" aria-label="チャットで相談する">
+  <img src="images/kotobuki-dpf.jpg" alt="コトブキサポート">
+</button>
+
 <script>
-/* ===== Dify カスタムアイコン & チャット窓固定 ===== */
+/* ===== カスタムボタン → Difyを開く & チャット窓固定 ===== */
 (function() {
   var GAP_BOTTOM = 88;
   var GAP_TOP    = 72;
-  var ICON_URL   = 'images/kotobuki-dpf.jpg';
 
   function pinWindow(w) {
     var maxH = window.innerHeight - GAP_BOTTOM - GAP_TOP;
@@ -2225,27 +2248,20 @@
     w.style.setProperty('height',     Math.min(640, maxH) + 'px', 'important');
   }
 
-  /* インラインstyle !important でアイコン適用（最高優先度） */
-  function applyIcon(btn) {
-    btn.style.setProperty('background-image',    "url('" + ICON_URL + "')", 'important');
-    btn.style.setProperty('background-size',     'cover',  'important');
-    btn.style.setProperty('background-position', 'center', 'important');
-    btn.style.setProperty('overflow',            'hidden', 'important');
-    /* SVGを非表示 */
-    var svg = btn.querySelector('svg');
-    if (svg) svg.style.setProperty('display', 'none', 'important');
-  }
+  /* カスタムボタンクリック → Difyの隠しボタンをクリック */
+  document.getElementById('ktb-chat-btn').addEventListener('click', function() {
+    var difyBtn = document.getElementById('dify-chatbot-bubble-button');
+    if (difyBtn) {
+      difyBtn.style.removeProperty('display'); /* 一瞬だけ表示に戻してクリック */
+      difyBtn.click();
+      difyBtn.style.setProperty('display', 'none', 'important');
+    }
+  });
 
-  /* ===== ボタン検出 ===== */
-  var iconTimer = setInterval(function() {
-    var btn = document.getElementById('dify-chatbot-bubble-button');
-    if (!btn) return;
-    clearInterval(iconTimer);
-    applyIcon(btn);
-    /* Difyが再描画しても即再適用 */
-    new MutationObserver(function() { applyIcon(btn); })
-      .observe(btn, { attributes: true, childList: true, attributeFilter: ['style'] });
-  }, 150);
+  var timer = setInterval(function() {
+    var w = document.getElementById('dify-chatbot-bubble-window');
+    if (!w) return;
+    clearInterval(timer);
 
   var timer = setInterval(function() {
     var w = document.getElementById('dify-chatbot-bubble-window');
