@@ -2196,18 +2196,18 @@
   defer>
 </script>
 <style>
-  /* Dify ボタン：右下（デフォルト位置のまま）*/
+  /* Dify ボタン */
   #dify-chatbot-bubble-button {
-    background-color: #1C64F2 !important;
-    background-image: url('images/kotobuki-dpf.jpg') !important;
-    background-size: cover !important;
-    background-position: center !important;
     z-index: 190 !important;
+    overflow: hidden !important;
+    position: relative !important;
   }
-  /* ボタン内のデフォルトアイコン（SVG）を非表示 */
-  #dify-chatbot-bubble-button svg,
-  #dify-chatbot-bubble-button img:not([src*="logo-goodone"]) {
-    display: none !important;
+  #dify-chatbot-bubble-button svg { display: none !important; }
+  #dify-custom-icon {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; border-radius: 50%;
+    pointer-events: none;
   }
   /* チャット窓：サイズのみ制御（位置はJSで固定）*/
   #dify-chatbot-bubble-window {
@@ -2237,6 +2237,19 @@
     w.style.setProperty('max-height', maxH + 'px', 'important');
     w.style.setProperty('height',   Math.min(640, maxH) + 'px', 'important');
   }
+
+  /* ===== カスタムアイコンを挿入 ===== */
+  var iconTimer = setInterval(function() {
+    var btn = document.getElementById('dify-chatbot-bubble-button');
+    if (!btn) return;
+    clearInterval(iconTimer);
+    if (!document.getElementById('dify-custom-icon')) {
+      var img = document.createElement('img');
+      img.id  = 'dify-custom-icon';
+      img.src = 'images/kotobuki-dpf.jpg';
+      btn.appendChild(img);
+    }
+  }, 150);
 
   var timer = setInterval(function() {
     var w = document.getElementById('dify-chatbot-bubble-window');
