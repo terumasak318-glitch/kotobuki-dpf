@@ -2189,28 +2189,6 @@
     systemVariables: {},
     userVariables: {},
   }
-
-  // チャットウィンドウのタイトルをDOMで書き換え
-  document.addEventListener('DOMContentLoaded', function() {
-    function applyTitle() {
-      var titleEl = document.querySelector('#dify-chatbot-bubble-window .title');
-      if (titleEl) {
-        titleEl.textContent = 'コトブキサポート';
-        return true;
-      }
-      return false;
-    }
-    // ウィンドウが開くたびに適用されるよう監視
-    var mo = new MutationObserver(function() { applyTitle(); });
-    var checkInterval = setInterval(function() {
-      var win = document.getElementById('dify-chatbot-bubble-window');
-      if (win) {
-        clearInterval(checkInterval);
-        applyTitle();
-        mo.observe(win, { childList: true, subtree: true });
-      }
-    }, 300);
-  });
 </script>
 <script
   src="https://udify.app/embed.min.js"
