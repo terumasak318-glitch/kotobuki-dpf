@@ -2196,8 +2196,11 @@
   defer>
 </script>
 <style>
-  /* Difyデフォルトボタンは完全に隠す */
-  #dify-chatbot-bubble-button { display: none !important; }
+  /* Difyボタン: 透明にして機能は保持（opacity:0 = 見えないが押せる） */
+  #dify-chatbot-bubble-button {
+    opacity: 0 !important;
+    z-index: 195 !important;
+  }
   /* チャット窓 */
   #dify-chatbot-bubble-window {
     z-index: 9999 !important;
@@ -2207,68 +2210,71 @@
   @media (max-width: 900px) {
     #dify-chatbot-bubble-window { width: calc(100vw - 24px) !important; }
   }
-  /* 自前のカスタムボタン */
-  #ktb-chat-btn {
+  /* KTBロゴオーバーレイ（pointer-events:none でクリックはDifyに通す） */
+  #ktb-overlay {
     position: fixed;
-    bottom: 24px; right: 24px;
-    width: 60px; height: 60px;
     border-radius: 50%;
     overflow: hidden;
-    cursor: pointer;
-    z-index: 9998;
+    pointer-events: none;
+    z-index: 194;
     box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-    border: none; padding: 0; background: none;
   }
-  #ktb-chat-btn img {
+  #ktb-overlay img {
     width: 100%; height: 100%; object-fit: cover; display: block;
-  }
-  @media (max-width: 900px) {
-    #ktb-chat-btn { bottom: 84px; right: 16px; }
   }
 </style>
 
-<!-- カスタムチャットボタン（KTBロゴ） -->
-<button id="ktb-chat-btn" aria-label="チャットで相談する">
-  <img src="images/kotobuki-dpf.jpg" alt="コトブキサポート">
-</button>
-
 <script>
-/* ===== カスタムボタン → Difyを開く & チャット窓固定 ===== */
+/* ===== Dify KTBアイコン & チャット窓固定 ===== */
 (function() {
   var GAP_BOTTOM = 88;
   var GAP_TOP    = 72;
 
+  /* チャット窓を下に固定 */
   function pinWindow(w) {
     var maxH = window.innerHeight - GAP_BOTTOM - GAP_TOP;
-    w.style.setProperty('position',   'fixed', 'important');
+    w.style.setProperty('position',   'fixed',  'important');
     w.style.setProperty('bottom',     GAP_BOTTOM + 'px', 'important');
-    w.style.setProperty('top',        'auto', 'important');
-    w.style.setProperty('right',      '16px', 'important');
+    w.style.setProperty('top',        'auto',   'important');
+    w.style.setProperty('right',      '16px',   'important');
     w.style.setProperty('max-height', maxH + 'px', 'important');
     w.style.setProperty('height',     Math.min(640, maxH) + 'px', 'important');
   }
 
-  /* カスタムボタンクリック → Difyの隠しボタンをクリック */
-  document.getElementById('ktb-chat-btn').addEventListener('click', function() {
-    var difyBtn = document.getElementById('dify-chatbot-bubble-button');
-    if (difyBtn) {
-      difyBtn.style.removeProperty('display'); /* 一瞬だけ表示に戻してクリック */
-      difyBtn.click();
-      difyBtn.style.setProperty('display', 'none', 'important');
+  /* KTBオーバーレイをDifyボタンに重ねる */
+  function positionOverlay(btn) {
+    var overlay = document.getElementById('ktb-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'ktb-overlay';
+      var img = document.createElement('img');
+      img.src = 'images/kotobuki-dpf.jpg';
+      img.alt = 'コトブキサポート';
+      overlay.appendChild(img);
+      document.body.appendChild(overlay);
     }
-  });
+    var r = btn.getBoundingClientRect();
+    overlay.style.width  = r.width  + 'px';
+    overlay.style.height = r.height + 'px';
+    overlay.style.bottom = (window.innerHeight - r.bottom) + 'px';
+    overlay.style.right  = (window.innerWidth  - r.right)  + 'px';
+  }
 
-  var timer = setInterval(function() {
+  /* Difyボタン検出 → オーバーレイ設置 */
+  var btnTimer = setInterval(function() {
+    var btn = document.getElementById('dify-chatbot-bubble-button');
+    if (!btn) return;
+    clearInterval(btnTimer);
+    positionOverlay(btn);
+    window.addEventListener('resize', function() { positionOverlay(btn); });
+  }, 150);
+
+  /* チャット窓検出 → 位置を固定 */
+  var winTimer = setInterval(function() {
     var w = document.getElementById('dify-chatbot-bubble-window');
     if (!w) return;
-    clearInterval(timer);
-
-  var timer = setInterval(function() {
-    var w = document.getElementById('dify-chatbot-bubble-window');
-    if (!w) return;
-    clearInterval(timer);
+    clearInterval(winTimer);
     pinWindow(w);
-    /* Difyが style を変更したら即座に再適用 */
     new MutationObserver(function() { pinWindow(w); })
       .observe(w, { attributes: true, attributeFilter: ['style', 'class'] });
     window.addEventListener('resize', function() { pinWindow(w); });
