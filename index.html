@@ -800,6 +800,11 @@
     .footer-brand p { max-width: 100%; }
     .price-merit-grid { grid-template-columns: 1fr !important; }
   }
+  /* スマホのみ表示の改行 */
+  .sp-br { display: none; }
+  @media (max-width: 480px) {
+    .sp-br { display: block; }
+  }
 
   /* ===== DPF INTRO ANIMATION ===== */
   #dpf-intro {
@@ -1331,7 +1336,7 @@
 <section class="dpf-stages" id="stages">
   <div class="section-inner">
     <div class="section-eyebrow">DPF DETERIORATION</div>
-    <h2 class="section-title" style="color:white;">DPF詰まりの進行と<span style="color:var(--orange2);">洗浄のベストタイミング</span></h2>
+    <h2 class="section-title" style="color:white;">DPF詰まりの進行と洗浄の<br class="sp-br"><span style="color:var(--orange2);">ベストタイミング</span></h2>
     <p style="text-align:center; color:rgba(255,255,255,0.6); margin-top:-16px; margin-bottom:0; font-size:0.9rem;">放置するほど施工不可リスクが高まります。サインを見逃さないでください。</p>
     <div class="stages-grid">
       <div class="stage-col">
